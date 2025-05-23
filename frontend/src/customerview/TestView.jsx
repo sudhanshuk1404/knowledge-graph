@@ -27,21 +27,18 @@ const TestView = () => {
   const [docs, setDocs] = useState(null);
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [kg, setKg] = useState(null);
-  const [selectedKgtxt,setSelectedKgtxt] = useState(null);
-  const [selectedKgJson,setSelectedKgJson] = useState(null);
-  const [reciverKgList,setReceiverKgList] = useState(null);
-  
-
-  
-  
-
-  
+  const [selectedKgtxt, setSelectedKgtxt] = useState(null);
+  const [selectedKgJson, setSelectedKgJson] = useState(null);
+  const [reciverKgList, setReceiverKgList] = useState(null);
 
   const handleIncommingCallsMedia = async () => {
     try {
-      const response = await axios.get("/api/s3/get-incomming-media", {
-        params: { selectedUser: selectedUser },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/s3/get-incomming-media`,
+        {
+          params: { selectedUser: selectedUser },
+        }
+      );
       setAudioUrl(null);
       setTranscript(null);
       setReceiver(null);
@@ -80,14 +77,12 @@ const TestView = () => {
       setSelectedKgtxt(null);
       setSelectedKgJson(null);
       setKg(response.data.kg);
-
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error fetching Incomming KG:", error);
     } finally {
       setState("Incomming_kg");
     }
-  }
+  };
 
   const handleOutgoingKG = async () => {
     try {
@@ -104,17 +99,16 @@ const TestView = () => {
       setSelectedDoc(null);
       setOutgoingCalls(null);
       setReceiver(null);
-      setKg(null)
+      setKg(null);
       setSelectedKgtxt(null);
       setSelectedKgJson(null);
       setReceiverKgList(response.data.kgRecivers);
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error fetching Outgoing KG:", error);
     } finally {
       setState("Outgoing_kg");
     }
-  }
+  };
 
   const handleUserMessages = async () => {
     try {
@@ -241,7 +235,11 @@ const TestView = () => {
             {/* Incoming Calls Button */}
             <button
               type="button"
-              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${state === 'Incomming_media' ? 'ring-4 ring-blue-300 font-bold scale-105' : ''}`}
+              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${
+                state === "Incomming_media"
+                  ? "ring-4 ring-blue-300 font-bold scale-105"
+                  : ""
+              }`}
               onClick={handleIncommingCallsMedia}
             >
               <svg
@@ -262,7 +260,11 @@ const TestView = () => {
             </button>
             <button
               type="button"
-              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${state === 'Incomming_media' ? 'ring-4 ring-blue-300 font-bold scale-105' : ''}`}
+              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${
+                state === "Incomming_media"
+                  ? "ring-4 ring-blue-300 font-bold scale-105"
+                  : ""
+              }`}
               onClick={handleIncomingKG}
             >
               <svg
@@ -281,12 +283,15 @@ const TestView = () => {
               </svg>
               Incoming KG
             </button>
-            
 
             {/* Outgoing Calls Button */}
             <button
               type="button"
-              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${state === 'Outgoing_calls' ? 'ring-4 ring-indigo-300 font-bold scale-105' : ''}`}
+              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${
+                state === "Outgoing_calls"
+                  ? "ring-4 ring-indigo-300 font-bold scale-105"
+                  : ""
+              }`}
               onClick={handleOutgoingCalls}
             >
               <svg
@@ -307,7 +312,11 @@ const TestView = () => {
             </button>
             <button
               type="button"
-              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${state === 'Outgoing_calls' ? 'ring-4 ring-indigo-300 font-bold scale-105' : ''}`}
+              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${
+                state === "Outgoing_calls"
+                  ? "ring-4 ring-indigo-300 font-bold scale-105"
+                  : ""
+              }`}
               onClick={handleOutgoingKG}
             >
               <svg
@@ -330,7 +339,11 @@ const TestView = () => {
             {/* User SMS Button */}
             <button
               type="button"
-              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${state === 'User_messages' ? 'ring-4 ring-emerald-300 font-bold scale-105' : ''}`}
+              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${
+                state === "User_messages"
+                  ? "ring-4 ring-emerald-300 font-bold scale-105"
+                  : ""
+              }`}
               onClick={handleUserMessages}
             >
               <svg
@@ -353,7 +366,11 @@ const TestView = () => {
             {/* Docs Button */}
             <button
               type="button"
-              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-violet-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${state === 'User_docs' ? 'ring-4 ring-violet-300 font-bold scale-105' : ''}`}
+              className={`flex items-center justify-center px-4 py-2 bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700 text-white rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-violet-400 focus:ring-opacity-75 transform hover:scale-[1.02] active:scale-[0.98] ${
+                state === "User_docs"
+                  ? "ring-4 ring-violet-300 font-bold scale-105"
+                  : ""
+              }`}
               onClick={handleDocs}
             >
               <svg
@@ -436,45 +453,43 @@ const TestView = () => {
           </>
         ) : state === "Incomming_kg" ? (
           <>
-            <KGList 
+            <KGList
               kg={kg}
               setSelectedKgtxt={setSelectedKgtxt}
               setSelectedKgJson={setSelectedKgJson}
             />
-            {selectedKgtxt && <ShowKgTxt
-              selectedKgtxt={selectedKgtxt}
-              state={state}
-            />}
-            {selectedKgJson && <ShowKgJson
-              selectedKgJson={selectedKgJson}
-              state={state}
-            />}
+            {selectedKgtxt && (
+              <ShowKgTxt selectedKgtxt={selectedKgtxt} state={state} />
+            )}
+            {selectedKgJson && (
+              <ShowKgJson selectedKgJson={selectedKgJson} state={state} />
+            )}
           </>
-        ): state==="Outgoing_kg"?(
+        ) : state === "Outgoing_kg" ? (
           <>
-        <ReciverKgList
-          reciverKgList={reciverKgList}
-          setKg={setKg}
-          setSelectedKgtxt={setSelectedKgtxt}
-          setSelectedKgJson={setSelectedKgJson}
-        />
-        {kg && <>
-            <KGList 
-              kg={kg}
+            <ReciverKgList
+              reciverKgList={reciverKgList}
+              setKg={setKg}
               setSelectedKgtxt={setSelectedKgtxt}
               setSelectedKgJson={setSelectedKgJson}
             />
-            {selectedKgtxt && <ShowKgTxt
-              selectedKgtxt={selectedKgtxt}
-              state={state}
-            />}
-            {selectedKgJson && <ShowKgJson
-              selectedKgJson={selectedKgJson}
-              state={state}
-            />}
-          </>}
-        </>
-        ): null}
+            {kg && (
+              <>
+                <KGList
+                  kg={kg}
+                  setSelectedKgtxt={setSelectedKgtxt}
+                  setSelectedKgJson={setSelectedKgJson}
+                />
+                {selectedKgtxt && (
+                  <ShowKgTxt selectedKgtxt={selectedKgtxt} state={state} />
+                )}
+                {selectedKgJson && (
+                  <ShowKgJson selectedKgJson={selectedKgJson} state={state} />
+                )}
+              </>
+            )}
+          </>
+        ) : null}
       </div>
     </div>
   );

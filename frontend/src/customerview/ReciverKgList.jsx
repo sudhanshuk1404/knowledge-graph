@@ -4,17 +4,18 @@ const ReciverKgList = ({
   reciverKgList,
   setKg,
   setSelectedKgtxt,
-  setSelectedKgJson
+  setSelectedKgJson,
 }) => {
-  
   const [selectedReciverKg, setSelectedReciverKg] = useState(null);
   const fetchKG = async (user) => {
     try {
-      const response = await axios.get('/api/s3/get-outgoing-kg', {
-        params: { user }
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/s3/get-outgoing-kg`,
+        {
+          params: { user },
+        }
+      );
       setKg(response.data.kg);
-      
     } catch (error) {
       console.error("Error fetching call recording:", error);
     }
@@ -51,7 +52,9 @@ const ReciverKgList = ({
               onClick={() => onSelectReciverkg(user)}
             >
               <span className="mr-3 text-xl">👨‍💼</span>
-              <span className="flex-1 font-medium tracking-wide">{user.split("/")[3]}</span>
+              <span className="flex-1 font-medium tracking-wide">
+                {user.split("/")[3]}
+              </span>
               <span className="ml-3 text-lg">{isActive ? "▼" : "▶"}</span>
             </li>
           );

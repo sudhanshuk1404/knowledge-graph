@@ -3,9 +3,12 @@ import axios from "axios";
 const UserMessageList = ({ messages, selectedUser, setSelectedMessage }) => {
   const handleMessageClick = async (key) => {
     try {
-      const response = await axios.get("/api/s3/get-message", {
-        params: { key },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/s3/get-message`,
+        {
+          params: { key },
+        }
+      );
       setSelectedMessage(response.data.transcript);
     } catch (error) {
       console.error("Error fetching transcript:", error);

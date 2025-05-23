@@ -1,16 +1,18 @@
 import axios from "axios";
 
-const KGList = ({ kg, setSelectedKgtxt, setSelectedKgJson}) => {
+const KGList = ({ kg, setSelectedKgtxt, setSelectedKgJson }) => {
   const handleKGClick = async (key) => {
     try {
-      const response = await axios.get("/api/s3/get-kg", {
-        params: { key },
-      });
-      if(key.endsWith(".txt")){
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/s3/get-kg`,
+        {
+          params: { key },
+        }
+      );
+      if (key.endsWith(".txt")) {
         setSelectedKgJson(null);
         setSelectedKgtxt(response.data.narrative);
-      }
-      else{
+      } else {
         setSelectedKgtxt(null);
         setSelectedKgJson(response.data.memory);
       }
