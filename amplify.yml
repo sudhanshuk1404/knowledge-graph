@@ -1,0 +1,40 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - nvm install 23
+            - nvm use 23
+            - cd ..
+            - cd frontend
+            - npm install
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: frontend/dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - frontend/node_modules/**/*
+    backend:
+      phases:
+        preBuild:
+          commands:
+            - cd backend
+            - npm ci
+        build:
+          commands:
+            - echo "No build step for backend"
+        postBuild:
+          commands:
+            - echo "Backend ready"
+      artifacts:
+        baseDirectory: backend
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - backend/node_modules/**/*
